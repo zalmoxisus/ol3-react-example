@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/pka/ol3-react-example.git"
+    "url": "git+https://github.com/oliverbienert/ol3-react-example.git"
   },
   "keywords": [
     "redux",
@@ -17,21 +17,22 @@
   "author": "Pirmin Kalberer",
   "license": "MIT",
   "bugs": {
-        "url": "https://github.com/pka/ol3-react-example/issues"
+    "url": "https://github.com/pka/ol3-react-example/issues"
   },
   "homepage": "https://github.com/pka/ol3-react-example#readme",
   "dependencies": {
-    "openlayers": "^3.3.0",
-    "react": "^0.13.3",
-    "react-redux": "^0.5.0",
-    "redux": "^1.0.0-rc"
+    "openlayers": "^3.15.1",
+    "react": "^15.1.0",
+    "react-dom": "^15.1.0",
+    "react-redux": "^4.4.5",
+    "redux": "^3.5.2"
   },
   "devDependencies": {
-    "react-hot-loader": "^1.2.7",
+    "react-hot-loader": "^1.3.0",
     "jsx-loader": "^0.13.2",
-    "style-loader": "^0.12.0",
-    "css-loader": "^0.16.0",
-    "webpack": "^1.9.11",
-    "webpack-dev-server": "^1.9.0"
+    "style-loader": "^0.13.1",
+    "css-loader": "^0.23.1",
+    "webpack": "^1.13.1",
+    "webpack-dev-server": "^1.14.1"
   }
 }

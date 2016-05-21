@@ -1,5 +1,6 @@
 var ol = require('openlayers');
 var React = require('react');
+var ReactDOM = require('react-dom');
 var Redux = require('redux');
 var ReactRedux = require('react-redux');
 
@@ -7,6 +8,7 @@ require("openlayers/css/ol.css");
 require("./popup.css");
 
 var createStore = Redux.createStore;
+var compose = Redux.compose;
 var Provider = ReactRedux.Provider;
 var connect = ReactRedux.connect;
 
@@ -82,7 +84,7 @@ var PlaceList = React.createClass( {
     var createItem = function(place) {
       var name = placeName(place);
       var selClass = (name == selected) ? 'selected' : '';
-      return <li key={name} className={selClass} onClick={onSelectClick}>{name}</li>;
+      return <li key={name} className={selClass} onClick={onSelectClick.bind(this, name)}>{name}</li>;
     };
     return (
       <ul>
@@ -109,9 +111,6 @@ function selectAction(placeName) {
 
 // Reducer:
 function placeSelector(state, action) {
-  if (typeof state === 'undefined') {
-    state = {places: [], selected: null};
-  }
   switch(action.type){
     case 'visible':
       return {places: action.places, selected: state.selected};
@@ -123,7 +122,10 @@ function placeSelector(state, action) {
 }
 
 // Store:
-var store = createStore(placeSelector);
+var store = createStore(placeSelector, {places: [], selected: null}, compose(
+    // Add other middleware on this line...
+    window.devToolsExtension ? window.devToolsExtension() : f => f //add support for Redux dev tools
+));
 
 // Map Redux state to component props
 function mapStateToProps(state)  {
@@ -136,8 +138,7 @@ function mapStateToProps(state)  {
 // Map Redux actions to component props
 function mapDispatchToProps(dispatch) {
   return {
-    onSelectClick: function(e) {
-      name = e.dispatchMarker.split('$')[1];
+    onSelectClick: function(name) {
       dispatch(selectAction(name));
       // Update map
       updateSelection(name)
@@ -151,13 +152,11 @@ var App = connect(
   mapDispatchToProps
 )(PlaceList);
 
-React.render(
-  React.createElement(Provider, {store: store}, 
-    function(){
-      return (<App/>)
-    }
-  ),
-  document.getElementById('root')
+ReactDOM.render(
+    <Provider store={store}>
+        <App/>
+    </Provider>,
+    document.getElementById('root')
 );
 
 

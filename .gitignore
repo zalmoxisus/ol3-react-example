@@ -1,2 +1,4 @@
+/.idea
+/ol3-react-example.iml
 node_modules/
 npm-debug.log
