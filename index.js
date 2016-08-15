@@ -37,7 +37,6 @@ map = new ol.Map({
     zoom: 4
   })
 });
-console.log(stringify(map));
 
 popupElement = document.getElementById('popup');
 var popup = new ol.Overlay({
@@ -124,10 +123,13 @@ function placeSelector(state, action) {
 }
 
 // Store:
-var store = createStore(placeSelector, {places: [], selected: null}, compose(
-    // Add other middleware on this line...
-    window.devToolsExtension ? window.devToolsExtension() : f => f //add support for Redux dev tools
-));
+var store = createStore(placeSelector, {places: [], selected: null});
+
+store.subscribe(function() {
+  console.dir(store.getState());
+  // console.log(stringify(store.getState()));
+});
+
 
 // Map Redux state to component props
 function mapStateToProps(state)  {
