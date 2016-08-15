@@ -1,3 +1,4 @@
+var stringify = require('javascript-stringify');
 var ol = require('openlayers');
 var React = require('react');
 var ReactDOM = require('react-dom');
@@ -36,6 +37,7 @@ map = new ol.Map({
     zoom: 4
   })
 });
+console.log(stringify(map));
 
 popupElement = document.getElementById('popup');
 var popup = new ol.Overlay({
